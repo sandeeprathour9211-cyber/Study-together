@@ -51,6 +51,27 @@ header {
 <div class="card">📝 MCQ Practice</div>
 <div class="card">🎯 Mock Test</div>
 <div class="card">📚 PDF Notes</div>
+</div><div class="card">
+<h2>📝 MCQ Practice</h2>
+<p id="question">भारत की राजधानी क्या है?</p>
+
+<button onclick="checkAnswer(this,'Delhi')">दिल्ली</button>
+<button onclick="checkAnswer(this,'Mumbai')">मुंबई</button>
+<button onclick="checkAnswer(this,'Patna')">पटना</button>
+<button onclick="checkAnswer(this,'Jaipur')">जयपुर</button>
+
+<p id="result"></p>
 </div>
+
+<script>
+function checkAnswer(btn, answer) {
+let result = document.getElementById("result");
+if(answer === "Delhi") {
+result.innerHTML = "✅ बिल्कुल सही जवाब!";
+} else {
+result.innerHTML = "❌ गलत जवाब! सही उत्तर दिल्ली है।";
+}
+}
+  </script>
 </body>
 </html>
