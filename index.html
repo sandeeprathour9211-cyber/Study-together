@@ -100,3 +100,360 @@ document.getElementById("score").innerText = "अंक: " + marks;
 }
 }
 </script>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Together</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f1f5f9;
+ color:#222;
+}
+header{
+ background:linear-gradient(135deg,#092c70,#087bd5);
+ color:white;
+ text-align:center;
+ padding:25px 10px;
+}
+header h1{margin:0;font-size:30px}
+nav{
+ background:#06366e;
+ padding:12px;
+ text-align:center;
+ position:sticky;
+ top:0;
+}
+nav a{
+ color:white;
+ text-decoration:none;
+ margin:8px;
+ font-size:14px;
+}
+.container{padding:15px;max-width:1100px;margin:auto}
+h2{color:#0756a5}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+ gap:14px;
+}
+.card{
+ background:white;
+ padding:22px 10px;
+ text-align:center;
+ border-radius:12px;
+ box-shadow:0 3px 10px #0001;
+ font-weight:bold;
+ cursor:pointer;
+}
+.card:hover{background:#e0efff}
+button{
+ background:#0874ce;
+ color:white;
+ border:0;
+ padding:11px 18px;
+ border-radius:7px;
+ cursor:pointer;
+ margin:5px;
+}
+button:hover{background:#064d91}
+.box{
+ background:white;
+ padding:18px;
+ border-radius:12px;
+ margin:15px 0;
+ box-shadow:0 2px 8px #0001;
+}
+.option{
+ display:block;
+ width:100%;
+ text-align:left;
+ background:#edf4ff;
+ color:#222;
+ margin:8px 0;
+}
+.option:hover{background:#d1e5ff}
+.correct{background:#b8f2c8!important}
+.wrong{background:#ffcaca!important}
+footer{
+ background:#092c70;
+ color:white;
+ text-align:center;
+ padding:18px;
+ margin-top:30px;
+}
+input{
+ padding:10px;
+ width:100%;
+ border:1px solid #ccc;
+ border-radius:6px;
+}
+section{scroll-margin-top:65px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 Study Together</h1>
+<p>आपकी सफलता, हमारा लक्ष्य</p>
+<p>UPSC | SSC | UPPCS | Railway | Police</p>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#subjects">Subjects</a>
+<a href="#mcq">MCQ</a>
+<a href="#mock">Mock Test</a>
+<a href="#notes">Notes</a>
+</nav>
+
+<div class="container">
+
+<section id="home">
+<div class="box" style="text-align:center">
+<h2>स्वागत है Study Together में!</h2>
+<p>अब पढ़ाई होगी आसान और तैयारी होगी शानदार।</p>
+<button onclick="document.getElementById('subjects').scrollIntoView()">पढ़ाई शुरू करें</button>
+</div>
+</section>
+
+<section id="subjects">
+<h2>📚 हमारे विषय</h2>
+<div class="grid">
+<div class="card" onclick="startSubject('GK & GS')">📖<br>GK & GS</div>
+<div class="card" onclick="startSubject('History')">🏛️<br>History</div>
+<div class="card" onclick="startSubject('Geography')">🌍<br>Geography</div>
+<div class="card" onclick="startSubject('Polity')">📜<br>Polity</div>
+<div class="card" onclick="startSubject('Economics')">💰<br>Economics</div>
+<div class="card" onclick="startSubject('Science')">🔬<br>General Science</div>
+<div class="card" onclick="startSubject('Current Affairs')">📰<br>Current Affairs</div>
+</div>
+</section>
+
+<section id="mcq">
+<h2>📝 MCQ Practice</h2>
+<div class="box">
+<h3 id="subjectTitle">सभी विषयों के प्रश्न</h3>
+<p id="progress"></p>
+<h3 id="question">प्रश्न यहाँ दिखाई देगा</h3>
+<div id="options"></div>
+<p id="feedback"></p>
+<button onclick="nextQuestion()">अगला प्रश्न ➜</button>
+<button onclick="restart()">दोबारा शुरू करें</button>
+</div>
+</section>
+
+<section id="mock">
+<h2>🎯 Mock Test</h2>
+<div class="box">
+<p>टेस्ट समय: <b>5 मिनट</b></p>
+<p>कुल प्रश्न: 5</p>
+<p>समय शेष: <b id="timer">05:00</b></p>
+<button onclick="startMock()">Mock Test शुरू करें</button>
+<button onclick="stopMock()">टेस्ट बंद करें</button>
+</div>
+</section>
+
+<section id="notes">
+<h2>📚 Study Notes</h2>
+<div class="box">
+<h3>महत्वपूर्ण अध्ययन सामग्री</h3>
+<ul>
+<li>भारतीय इतिहास</li>
+<li>भारतीय संविधान</li>
+<li>भारत का भूगोल</li>
+<li>अर्थव्यवस्था</li>
+<li>सामान्य विज्ञान</li>
+<li>करेंट अफेयर्स</li>
+</ul>
+<p>अपने PDF Notes यहाँ जोड़ने के लिए नीचे Upload करें।</p>
+<input type="file" id="pdfUpload" accept=".pdf">
+<p id="fileName"></p>
+</div>
+</section>
+
+<section id="result">
+<div class="box">
+<h2>📊 आपका रिजल्ट</h2>
+<h3 id="score">अभी टेस्ट शुरू नहीं हुआ है।</h3>
+</div>
+</section>
+
+</div>
+
+<footer>
+<h3>📚 Study Together</h3>
+<p>आपकी सफलता, हमारा लक्ष्य ❤️</p>
+<p>Learn | Practice | Succeed</p>
+</footer>
+
+<script>
+
+const questions=[
+{
+s:"GK & GS",
+q:"भारत की राजधानी क्या है?",
+o:["मुंबई","नई दिल्ली","कोलकाता","चेन्नई"],
+a:1
+},
+{
+s:"History",
+q:"सिंधु घाटी सभ्यता का प्रसिद्ध बंदरगाह कौन था?",
+o:["हड़प्पा","लोथल","मोहनजोदड़ो","कालीबंगा"],
+a:1
+},
+{
+s:"Geography",
+q:"भारत की सबसे लंबी नदी कौन सी है?",
+o:["यमुना","गोदावरी","गंगा","नर्मदा"],
+a:2
+},
+{
+s:"Polity",
+q:"भारतीय संविधान कब लागू हुआ?",
+o:["15 अगस्त 1947","26 जनवरी 1950","26 नवंबर 1949","2 अक्टूबर 1950"],
+a:1
+},
+{
+s:"Economics",
+q:"भारत का केंद्रीय बैंक कौन सा है?",
+o:["SBI","RBI","PNB","NABARD"],
+a:1
+},
+{
+s:"Science",
+q:"मानव शरीर में रक्त को शुद्ध करने वाला अंग कौन सा है?",
+o:["हृदय","फेफड़ा","गुर्दा","आमाशय"],
+a:2
+},
+{
+s:"Current Affairs",
+q:"भारत का राष्ट्रीय पशु कौन है?",
+o:["शेर","बाघ","हाथी","हिरण"],
+a:1
+}
+];
+
+let current=0;
+let score=0;
+let selected=[];
+let activeQuestions=questions;
+let answered=false;
+let time=300;
+let clock=null;
+
+function startSubject(subject){
+activeQuestions=questions.filter(x=>x.s===subject);
+if(activeQuestions.length===0)activeQuestions=questions;
+current=0;
+score=0;
+selected=[];
+showQuestion();
+document.getElementById("mcq").scrollIntoView();
+}
+
+function showQuestion(){
+answered=false;
+let q=activeQuestions[current];
+document.getElementById("subjectTitle").innerText="विषय: "+q.s;
+document.getElementById("progress").innerText=
+"प्रश्न "+(current+1)+" / "+activeQuestions.length;
+document.getElementById("question").innerText=q.q;
+document.getElementById("feedback").innerText="";
+let html="";
+q.o.forEach((op,i)=>{
+html+=`<button class="option" onclick="checkAnswer(${i})">${String.fromCharCode(65+i)}. ${op}</button>`;
+});
+document.getElementById("options").innerHTML=html;
+}
+
+function checkAnswer(i){
+if(answered)return;
+answered=true;
+let q=activeQuestions[current];
+let buttons=document.querySelectorAll(".option");
+buttons[q.a].classList.add("correct");
+if(i===q.a){
+score++;
+document.getElementById("feedback").innerText="🎉 बिल्कुल सही जवाब!";
+}else{
+buttons[i].classList.add("wrong");
+document.getElementById("feedback").innerText=
+"सही उत्तर: "+q.o[q.a];
+}
+}
+
+function nextQuestion(){
+if(!answered){
+alert("पहले उत्तर चुनिए!");
+return;
+}
+if(current<activeQuestions.length-1){
+current++;
+showQuestion();
+}else{
+document.getElementById("score").innerText=
+"आपका स्कोर: "+score+" / "+activeQuestions.length;
+document.getElementById("result").scrollIntoView();
+}
+}
+
+function restart(){
+current=0;
+score=0;
+showQuestion();
+}
+
+function startMock(){
+stopMock();
+activeQuestions=questions.slice(0,5);
+current=0;
+score=0;
+time=300;
+updateTimer();
+showQuestion();
+document.getElementById("mcq").scrollIntoView();
+clock=setInterval(()=>{
+time--;
+updateTimer();
+if(time<=0){
+stopMock();
+document.getElementById("score").innerText=
+"समय समाप्त! आपका स्कोर: "+score+"/"+activeQuestions.length;
+document.getElementById("result").scrollIntoView();
+}
+},1000);
+}
+
+function updateTimer(){
+let m=Math.floor(time/60);
+let s=time%60;
+document.getElementById("timer").innerText=
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+}
+
+function stopMock(){
+if(clock){
+clearInterval(clock);
+clock=null;
+}
+}
+
+document.getElementById("pdfUpload").addEventListener("change",function(){
+if(this.files.length){
+document.getElementById("fileName").innerText=
+"चुनी गई PDF: "+this.files[0].name;
+}
+});
+
+showQuestion();
+
+</script>
+</body>
+</html>
