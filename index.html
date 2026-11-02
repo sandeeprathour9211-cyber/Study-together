@@ -75,3 +75,28 @@ result.innerHTML = "❌ गलत जवाब! सही उत्तर दि
   </script>
 </body>
 </html>
+<section class="card">
+<h2>📝 MCQ Practice</h2>
+<p id="question">भारत की राजधानी क्या है?</p>
+
+<button onclick="checkAnswer(this, false)">मुंबई</button>
+<button onclick="checkAnswer(this, true)">नई दिल्ली</button>
+<button onclick="checkAnswer(this, false)">कोलकाता</button>
+<button onclick="checkAnswer(this, false)">चेन्नई</button>
+
+<p id="result"></p>
+<p id="score">अंक: 0</p>
+</section>
+
+<script>
+let marks = 0;
+
+function checkAnswer(btn, correct) {
+document.getElementById("result").innerText =
+correct ? "🎉 सही उत्तर!" : "❌ गलत उत्तर!";
+if(correct) {
+marks++;
+document.getElementById("score").innerText = "अंक: " + marks;
+}
+}
+</script>
