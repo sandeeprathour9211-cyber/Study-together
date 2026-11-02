@@ -542,9 +542,103 @@ function nextQuestion() {
        <button onclick="location.reload()">दोबारा टेस्ट दें</button>`;
   }
 }
+<script>
+const questionBank = [
+{
+q:"भारत की राजधानी क्या है?",
+a:["मुंबई","नई दिल्ली","कोलकाता","चेन्नई"],
+c:1,
+subject:"GK"
+},
+{
+q:"भारत का संविधान कब लागू हुआ?",
+a:["1947","1949","1950","1952"],
+c:2,
+subject:"Polity"
+},
+{
+q:"भारत के प्रथम राष्ट्रपति कौन थे?",
+a:["डॉ. राजेंद्र प्रसाद","नेहरू","गांधीजी","पटेल"],
+c:0,
+subject:"History"
+},
+{
+q:"पृथ्वी का सबसे बड़ा महासागर कौन सा है?",
+a:["हिंद महासागर","प्रशांत महासागर","अटलांटिक","आर्कटिक"],
+c:1,
+subject:"Geography"
+},
+{
+q:"मानव शरीर में रक्त को शुद्ध करने वाला अंग कौन सा है?",
+a:["हृदय","फेफड़ा","गुर्दा","मस्तिष्क"],
+c:2,
+subject:"Science"
+}
+];
 
-showQuestion();
+let questions=[];
+let current=0;
+let marks=0;
+let answered=false;
+
+function startTest(){
+ questions=[...questionBank]
+ .sort(()=>Math.random()-0.5)
+ .slice(0,Math.min(25,questionBank.length));
+ current=0;
+ marks=0;
+ showQuestion();
+}
+
+function showQuestion(){
+ answered=false;
+ let q=questions[current];
+
+ document.getElementById("question").innerText=
+ "प्रश्न "+(current+1)+": "+q.q;
+
+ document.getElementById("options").innerHTML=
+ q.a.map((x,i)=>
+ `<button onclick="checkAnswer(${i})">
+ ${String.fromCharCode(65+i)}. ${x}
+ </button>`).join("");
+
+ document.getElementById("result").innerText="";
+ document.getElementById("score").innerText=
+ "कुल प्रश्न: "+questions.length;
+}
+
+function checkAnswer(i){
+ if(answered)return;
+ answered=true;
+
+ if(i===questions[current].c){
+ marks++;
+ document.getElementById("result").innerText="✅ सही उत्तर!";
+ }else{
+ document.getElementById("result").innerText=
+ "❌ गलत! सही उत्तर: "+
+ questions[current].a[questions[current].c];
+ }
+}
+
+function nextQuestion(){
+ if(!answered){
+ alert("पहले उत्तर चुनिए!");
+ return;
+ }
+
+ current++;
+
+ if(current<questions.length){
+ showQuestion();
+ }else{
+ document.getElementById("mock-test").innerHTML=
+ `<h2>🎉 टेस्ट पूरा हुआ!</h2>
+ <h3>आपका स्कोर: ${marks}/${questions.length}</h3>
+ <button onclick="location.reload()">दोबारा टेस्ट दें</button>`;
+ }
+}
+
+startTest();
 </script>
-</body>
-</html>
-अब आगे क्या करना है?
