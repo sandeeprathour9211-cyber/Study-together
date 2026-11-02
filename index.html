@@ -1,4 +1,4 @@
-!DOCTYPE html>
+use!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
@@ -352,6 +352,198 @@ document.getElementById("fileName").innerText=
 
 showQuestion();
 
+</script><section id="mock-test" class="card">
+  <h2>📝 Mock Test</h2>
+  <p id="question">भारत की राजधानी क्या है?</p>
+
+  <div id="options">
+    <button onclick="checkAnswer(0)">A. मुंबई</button>
+    <button onclick="checkAnswer(1)">B. नई दिल्ली</button>
+    <button onclick="checkAnswer(2)">C. कोलकाता</button>
+    <button onclick="checkAnswer(3)">D. चेन्नई</button>
+  </div>
+
+  <h3 id="result"></h3>
+  <button onclick="nextQuestion()">अगला प्रश्न ➡️</button>
+  <h3 id="score"></h3>
+</section>
+
+<script>
+const questions = [
+  {
+    q: "भारत की राजधानी क्या है?",
+    a: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"],
+    c: 1
+  },
+  {
+    q: "भारत का संविधान कब लागू हुआ?",
+    a: ["1947", "1949", "1950", "1952"],
+    c: 2
+  },
+  {
+    q: "भारत के प्रथम राष्ट्रपति कौन थे?",
+    a: ["डॉ. राजेंद्र प्रसाद", "नेहरू", "गांधीजी", "पटेल"],
+    c: 0
+  },
+  {
+    q: "गंगा नदी का उद्गम कहाँ से होता है?",
+    a: ["यमुनोत्री", "गंगोत्री", "मानसरोवर", "अरावली"],
+    c: 1
+  },
+  {
+    q: "भारत का राष्ट्रीय पशु कौन है?",
+    a: ["शेर", "हाथी", "बाघ", "हिरण"],
+    c: 2
+  }
+];
+
+let current = 0;
+let marks = 0;
+let answered = false;
+
+function showQuestion() {
+  answered = false;
+  document.getElementById("question").innerText =
+    (current + 1) + ". " + questions[current].q;
+
+  document.getElementById("options").innerHTML =
+    questions[current].a.map((x, i) =>
+      `<button onclick="checkAnswer(${i})">${String.fromCharCode(65+i)}. ${x}</button>`
+    ).join("");
+
+  document.getElementById("result").innerText = "";
+  document.getElementById("score").innerText = "";
+}
+
+function checkAnswer(i) {
+  if (answered) return;
+  answered = true;
+
+  if (i === questions[current].c) {
+    marks++;
+    document.getElementById("result").innerText = "✅ सही जवाब!";
+  } else {
+    document.getElementById("result").innerText =
+      "❌ गलत जवाब! सही उत्तर: " +
+      questions[current].a[questions[current].c];
+  }
+}
+
+function nextQuestion() {
+  if (!answered) {
+    alert("पहले उत्तर चुनिए!");
+    return;
+  }
+
+  current++;
+
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    document.getElementById("mock-test").innerHTML =
+      `<h2>🎉 टेस्ट पूरा हुआ!</h2>
+       <h3>आपका स्कोर: ${marks}/${questions.length}</h3>
+       <button onclick="location.reload()">दोबारा टेस्ट दें</button>`;
+  }
+}
+
+showQuestion();
+   </script><section id="mock-test" class="card">
+  <h2>📝 Mock Test</h2>
+  <p id="question">भारत की राजधानी क्या है?</p>
+
+  <div id="options">
+    <button onclick="checkAnswer(0)">A. मुंबई</button>
+    <button onclick="checkAnswer(1)">B. नई दिल्ली</button>
+    <button onclick="checkAnswer(2)">C. कोलकाता</button>
+    <button onclick="checkAnswer(3)">D. चेन्नई</button>
+  </div>
+
+  <h3 id="result"></h3>
+  <button onclick="nextQuestion()">अगला प्रश्न ➡️</button>
+  <h3 id="score"></h3>
+</section>
+
+<script>
+const questions = [
+  {
+    q: "भारत की राजधानी क्या है?",
+    a: ["मुंबई", "नई दिल्ली", "कोलकाता", "चेन्नई"],
+    c: 1
+  },
+  {
+    q: "भारत का संविधान कब लागू हुआ?",
+    a: ["1947", "1949", "1950", "1952"],
+    c: 2
+  },
+  {
+    q: "भारत के प्रथम राष्ट्रपति कौन थे?",
+    a: ["डॉ. राजेंद्र प्रसाद", "नेहरू", "गांधीजी", "पटेल"],
+    c: 0
+  },
+  {
+    q: "गंगा नदी का उद्गम कहाँ से होता है?",
+    a: ["यमुनोत्री", "गंगोत्री", "मानसरोवर", "अरावली"],
+    c: 1
+  },
+  {
+    q: "भारत का राष्ट्रीय पशु कौन है?",
+    a: ["शेर", "हाथी", "बाघ", "हिरण"],
+    c: 2
+  }
+];
+
+let current = 0;
+let marks = 0;
+let answered = false;
+
+function showQuestion() {
+  answered = false;
+  document.getElementById("question").innerText =
+    (current + 1) + ". " + questions[current].q;
+
+  document.getElementById("options").innerHTML =
+    questions[current].a.map((x, i) =>
+      `<button onclick="checkAnswer(${i})">${String.fromCharCode(65+i)}. ${x}</button>`
+    ).join("");
+
+  document.getElementById("result").innerText = "";
+  document.getElementById("score").innerText = "";
+}
+
+function checkAnswer(i) {
+  if (answered) return;
+  answered = true;
+
+  if (i === questions[current].c) {
+    marks++;
+    document.getElementById("result").innerText = "✅ सही जवाब!";
+  } else {
+    document.getElementById("result").innerText =
+      "❌ गलत जवाब! सही उत्तर: " +
+      questions[current].a[questions[current].c];
+  }
+}
+
+function nextQuestion() {
+  if (!answered) {
+    alert("पहले उत्तर चुनिए!");
+    return;
+  }
+
+  current++;
+
+  if (current < questions.length) {
+    showQuestion();
+  } else {
+    document.getElementById("mock-test").innerHTML =
+      `<h2>🎉 टेस्ट पूरा हुआ!</h2>
+       <h3>आपका स्कोर: ${marks}/${questions.length}</h3>
+       <button onclick="location.reload()">दोबारा टेस्ट दें</button>`;
+  }
+}
+
+showQuestion();
 </script>
 </body>
 </html>
